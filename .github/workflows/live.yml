@@ -1,0 +1,31 @@
+name: Live tests (manual)
+
+# Runs tests/live against a real Acrobat Sign developer account using
+# repository secrets. Manual only: it sends (then cancels) a real agreement.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  live:
+    name: Live signing flow
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v7
+        with:
+          python-version: "3.12"
+      - run: uv sync --locked
+      - name: Run live tests
+        env:
+          ADOBESIGN_INTEGRATION_KEY: ${{ secrets.ADOBESIGN_INTEGRATION_KEY }}
+          ADOBESIGN_CLIENT_ID: ${{ secrets.ADOBESIGN_CLIENT_ID }}
+          ADOBESIGN_CLIENT_SECRET: ${{ secrets.ADOBESIGN_CLIENT_SECRET }}
+          ADOBESIGN_REFRESH_TOKEN: ${{ secrets.ADOBESIGN_REFRESH_TOKEN }}
+          ADOBESIGN_API_ACCESS_POINT: ${{ secrets.ADOBESIGN_API_ACCESS_POINT }}
+          ADOBESIGN_TEST_SIGNER_EMAIL: ${{ secrets.ADOBESIGN_TEST_SIGNER_EMAIL }}
+          ADOBESIGN_TEST_WEBHOOK_URL: ${{ secrets.ADOBESIGN_TEST_WEBHOOK_URL }}
+        run: uv run pytest tests/live -m live -v -rs
