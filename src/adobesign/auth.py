@@ -238,13 +238,14 @@ class OAuthApp:
         """Get a new access token, keeping the existing refresh token.
 
         Raises :class:`~adobesign.errors.MissingRefreshTokenError` when
-        ``tokens`` has no refresh token, and a ``ValueError`` when it has no
+        ``tokens`` has no refresh token, and
+        :class:`~adobesign.errors.MissingAccessPointError` when it has no
         ``api_access_point`` to send the refresh to.
         """
         if not tokens.refresh_token:
             raise errors.MissingRefreshTokenError()
         if not tokens.api_access_point:
-            raise ValueError("TokenSet.api_access_point is required to refresh")
+            raise errors.MissingAccessPointError()
         issued_at = self._clock()
         response = self._transport.send(
             "POST",

@@ -7,6 +7,7 @@ No test in this directory (outside ``tests/live``) touches the network:
 from __future__ import annotations
 
 from collections.abc import Iterator
+from pathlib import Path
 
 import pytest
 import respx
@@ -15,6 +16,10 @@ from adobesign import AdobeSignClient
 from adobesign import IntegrationKey
 from adobesign import OAuthApp
 
+from cli_helpers import ALL_CLI_ENV
+from cli_helpers import CLI_ACCESS_POINT
+from cli_helpers import CLI_KEY
+from cli_helpers import CliHarness
 from helpers import ACCESS_POINT
 from helpers import CLIENT_ID
 from helpers import CLIENT_SECRET
@@ -59,3 +64,20 @@ def oauth_app(sleeps: SleepRecorder, mock_api: respx.MockRouter) -> Iterator[OAu
     )
     yield app
     app.close()
+
+
+@pytest.fixture
+def run_cli(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, mock_api: respx.MockRouter
+) -> CliHarness:
+    """CLI runner with an integration key, a fixed base URI and no retries."""
+    for name in ALL_CLI_ENV:
+        monkeypatch.delenv(name, raising=False)
+    return CliHarness(
+        {
+            "ADOBESIGN_CONFIG": str(tmp_path / "config.toml"),
+            "ADOBESIGN_INTEGRATION_KEY": CLI_KEY,
+            "ADOBESIGN_BASE_URI": CLI_ACCESS_POINT,
+            "ADOBESIGN_MAX_RETRIES": "0",
+        }
+    )

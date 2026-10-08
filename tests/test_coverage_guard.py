@@ -7,6 +7,7 @@ Two rules, both enforced here:
    ``@pytest.mark.covers("<Class>.<name>")`` (or ``covers("<function>")``).
    Classes and functions are discovered automatically from the package
    modules, so a new resource class is guarded without editing this file.
+   Every CLI leaf command is a target too, as ``covers("cli:<group> <cmd>")``.
    Markers are found by statically scanning ``tests/test_*.py``, so the check
    does not depend on which tests happen to be selected.
 2. Every method decorated with ``@api_endpoint`` (i.e. one that makes an
@@ -23,6 +24,8 @@ import inspect
 from pathlib import Path
 from types import ModuleType
 
+import click
+
 from adobesign import auth
 from adobesign import client
 from adobesign import models
@@ -30,6 +33,7 @@ from adobesign import notifications
 from adobesign import pagination
 from adobesign._endpoint import ENDPOINT_ATTRIBUTE
 from adobesign._transport import RetryPolicy
+from adobesign.cli.app import cli
 
 from endpoint_cases import ENDPOINT_CASES
 
@@ -86,7 +90,24 @@ def public_targets() -> set[str]:
         for name, member in vars(cls).items()
         if _is_public_member(name, member)
     }
-    return targets | {function.__name__ for function in PUBLIC_FUNCTIONS}  # type: ignore[attr-defined]
+    functions = {function.__name__ for function in PUBLIC_FUNCTIONS}
+    return targets | functions | cli_targets()
+
+
+def _command_paths(group: click.Group, prefix: str = "") -> set[str]:
+    paths: set[str] = set()
+    for name, command in group.commands.items():
+        path = f"{prefix}{name}"
+        if isinstance(command, click.Group):
+            paths |= _command_paths(command, f"{path} ")
+            continue
+        paths.add(path)
+    return paths
+
+
+def cli_targets() -> set[str]:
+    """``cli:<group> <command>`` for every leaf command of the CLI."""
+    return {f"cli:{path}" for path in _command_paths(cli)}
 
 
 def endpoint_targets() -> set[str]:
@@ -130,6 +151,9 @@ def test_public_surface_is_discovered() -> None:
     assert "WebhooksResource.delete" in targets
     assert "OAuthApp.authorization_url" in targets
     assert "parse_notification" in targets
+    assert "cli:agreements send" in targets
+    assert "cli:webhooks verify" in targets
+    assert len(cli_targets()) == 21
 
 
 def test_every_public_method_has_a_covering_test() -> None:

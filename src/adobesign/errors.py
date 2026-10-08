@@ -246,3 +246,18 @@ class OAuthStateMismatchError(AdobeSignError):
             "The OAuth redirect state does not match the expected state; "
             "refusing to exchange the authorisation code."
         )
+
+
+class MissingAccessPointError(AdobeSignError):
+    """OAuth tokens have no ``api_access_point`` to send a refresh to.
+
+    Tokens from :meth:`~adobesign.auth.OAuthApp.exchange_code` always carry
+    one; this happens with hand-built or partially persisted tokens.
+    """
+
+    def __init__(self) -> None:
+        super().__init__(
+            "The OAuth tokens have no api_access_point, so they cannot be "
+            "refreshed; set it (e.g. ADOBESIGN_BASE_URI for the CLI) or log in "
+            "again."
+        )

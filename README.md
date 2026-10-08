@@ -30,7 +30,8 @@ pip install git+https://github.com/BenA-SA/python-adobesign
 uv add git+https://github.com/BenA-SA/python-adobesign
 ```
 
-Requires Python 3.10+. Dependencies: `httpx` and `pydantic>=2`.
+Requires Python 3.10+. Dependencies: `httpx` and `pydantic>=2`. For the
+command-line tool, install the `cli` extra (adds `click`); see [CLI](#cli).
 
 ## Quickstart
 
@@ -182,6 +183,83 @@ def adobesign_webhook(request):
     return HttpResponse(
         handshake.body_json, status=handshake.status_code, headers=handshake.headers
     )
+```
+
+## CLI
+
+An `adobesign` command ships with the optional `cli` extra:
+
+```bash
+pip install 'python-adobesign[cli] @ git+https://github.com/BenA-SA/python-adobesign'
+```
+
+```text
+adobesign auth        login-url | exchange | refresh | whoami | base-uris
+adobesign documents   upload
+adobesign agreements  send | draft | get | list | members | events | cancel |
+                      remind | signing-urls | download
+adobesign webhooks    create | list | delete | verify
+adobesign notifications parse
+```
+
+```bash
+export ADOBESIGN_INTEGRATION_KEY=...        # or OAuth: see `adobesign auth --help`
+adobesign agreements send --file contract.pdf --name "Contract" \
+  --signer "Alice Example <alice@example.com>" --signer bob@example.com --dry-run
+adobesign agreements members CBJCHBCAABAA... --format table
+adobesign agreements download CBJCHBCAABAA... --signed -o signed.pdf
+```
+
+It is designed to be driven by scripts and AI agents:
+
+- **Output:** JSON on stdout (Adobe's camelCase field names); `--format table`
+  for humans.
+- **Errors:** JSON on stderr: `{"error": {"type", "message", "exit_code",
+  "status_code", "code", "api_message", "request_id", "retry_after"}}`.
+- **Exit codes:**
+
+  | Code | Meaning |
+  | --- | --- |
+  | 0 | success |
+  | 1 | API, server or network error |
+  | 2 | usage or validation error (including a missing `--yes`, HTTP 400) |
+  | 3 | authentication, permission or missing credentials |
+  | 4 | rate-limited (wait `retry_after`) |
+  | 5 | not found |
+
+- **`--dry-run`:** every mutating command prints the exact HTTP request(s)
+  (method, URL, redacted headers, body) and sends nothing.
+- **`--yes`:** commands that email or call anyone (`agreements send`,
+  `cancel`, `remind`, `webhooks create`, `webhooks delete`) refuse to run
+  non-interactively without `--yes`, and ask for confirmation on a terminal.
+- **Credentials:** these are read only from environment variables
+  (`ADOBESIGN_INTEGRATION_KEY`, or `ADOBESIGN_CLIENT_ID` /
+  `ADOBESIGN_CLIENT_SECRET` / `ADOBESIGN_REDIRECT_URI` /
+  `ADOBESIGN_REFRESH_TOKEN`, plus `ADOBESIGN_BASE_URI`) or
+  `~/.config/adobesign/config.toml`. That file is written with mode 0600, and
+  refreshed OAuth tokens are persisted there. Credentials are never accepted
+  as flags, and tokens are redacted in `--dry-run` and `--verbose` output.
+- **Retries:** 429 and idempotent 5xx calls are retried up to 3 times; set
+  `ADOBESIGN_MAX_RETRIES=0` to handle retries yourself.
+
+Every command's `--help` lists what it does, whether it emails anyone,
+examples and the exit codes.
+
+## Using with AI agents
+
+The repo ships an agent skill at
+[`skills/adobesign/SKILL.md`](skills/adobesign/SKILL.md) (Claude Code / Agent
+Skills format). It covers when to use the CLI, setup, safety rules (dry-run
+and explicit user confirmation before anything that emails people, never
+`--yes` without it, never echo credentials), recipes, and how to react to
+each exit code. It defers flag details to `--help`, so it stays accurate as
+the CLI evolves.
+
+Install it for Claude Code by copying or symlinking the folder:
+
+```bash
+git clone https://github.com/BenA-SA/python-adobesign
+ln -s "$PWD/python-adobesign/skills/adobesign" ~/.claude/skills/adobesign
 ```
 
 ## Errors and retries
