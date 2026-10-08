@@ -25,6 +25,15 @@ dependencies = [
     "pydantic>=2.6",
 ]
 
+[project.optional-dependencies]
+cli = [
+    "click>=8.1",
+    "tomli>=2.0; python_version < '3.11'",
+]
+
+[project.scripts]
+adobesign = "adobesign.cli:main"
+
 [project.urls]
 Homepage = "https://github.com/BenA-SA/python-adobesign"
 Issues = "https://github.com/BenA-SA/python-adobesign/issues"
@@ -32,6 +41,8 @@ Changelog = "https://github.com/BenA-SA/python-adobesign/blob/main/CHANGELOG.md"
 
 [dependency-groups]
 dev = [
+    "click>=8.1",
+    "tomli>=2.0; python_version < '3.11'",
     "mypy>=1.10",
     "pre-commit>=3.7",
     "pytest>=8.0",
@@ -77,7 +88,7 @@ select = [
 [tool.ruff.lint.isort]
 force-single-line = true
 known-first-party = ["adobesign"]
-known-local-folder = ["endpoint_cases", "fixture_catalog", "helpers"]
+known-local-folder = ["cli_helpers", "endpoint_cases", "fixture_catalog", "helpers"]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["PLR0912", "PLR0915"]
@@ -91,11 +102,15 @@ strict = true
 plugins = ["pydantic.mypy"]
 files = ["src/adobesign"]
 
+[[tool.mypy.overrides]]
+module = ["tomli"]
+ignore_missing_imports = true
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 markers = [
     "live: end-to-end tests against a real Acrobat Sign account (skipped without credentials)",
-    "covers(target): the public client method a test exercises (read by the endpoint-coverage guard)",
+    "covers(target): the public client method or CLI command (\"cli:<group> <command>\") a test exercises (read by the coverage guard)",
 ]
 addopts = "--strict-markers"
 
