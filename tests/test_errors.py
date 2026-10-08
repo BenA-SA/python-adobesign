@@ -6,6 +6,7 @@ import pytest
 
 from adobesign import AdobeSignError
 from adobesign import ApiError
+from adobesign import MissingAccessPointError
 from adobesign import MissingRefreshTokenError
 from adobesign import NotFoundError
 from adobesign import OAuthError
@@ -91,3 +92,4 @@ def test_structured_error_messages(error: AdobeSignError, expected: str) -> None
 def test_message_only_errors() -> None:
     assert "refresh token" in str(MissingRefreshTokenError())
     assert "state" in str(OAuthStateMismatchError())
+    assert "api_access_point" in str(MissingAccessPointError())

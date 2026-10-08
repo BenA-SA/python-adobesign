@@ -28,6 +28,7 @@ from adobesign import AdobeSignClient
 from adobesign import AuthenticationError
 from adobesign import InMemoryTokenStore
 from adobesign import IntegrationKey
+from adobesign import MissingAccessPointError
 from adobesign import MissingRefreshTokenError
 from adobesign import OAuthApp
 from adobesign import OAuthCredentials
@@ -254,7 +255,7 @@ def test_refresh_without_refresh_token_raises(app: OAuthApp) -> None:
 
 @pytest.mark.covers("OAuthApp.refresh")
 def test_refresh_without_access_point_raises(app: OAuthApp) -> None:
-    with pytest.raises(ValueError, match="api_access_point"):
+    with pytest.raises(MissingAccessPointError):
         app.refresh(TokenSet(access_token="a", refresh_token="r"))
 
 

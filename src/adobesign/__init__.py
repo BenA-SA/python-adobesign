@@ -36,6 +36,7 @@ from adobesign.errors import ApiError
 from adobesign.errors import AuthenticationError
 from adobesign.errors import BadRequestError
 from adobesign.errors import ConflictError
+from adobesign.errors import MissingAccessPointError
 from adobesign.errors import MissingRefreshTokenError
 from adobesign.errors import NotFoundError
 from adobesign.errors import OAuthError
@@ -82,6 +83,7 @@ __all__ = [
     "InMemoryTokenStore",
     "IntegrationKey",
     "MemberInfo",
+    "MissingAccessPointError",
     "MissingRefreshTokenError",
     "NotFoundError",
     "OAuthApp",

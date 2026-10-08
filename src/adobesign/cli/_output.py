@@ -120,6 +120,7 @@ def exit_code_for(exc: BaseException) -> ExitCode:
     auth_failures = (
         errors.AuthenticationError,
         errors.PermissionDeniedError,
+        errors.MissingAccessPointError,
         errors.MissingRefreshTokenError,
         errors.OAuthStateMismatchError,
         errors.WebhookClientIdError,

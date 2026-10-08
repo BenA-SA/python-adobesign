@@ -60,7 +60,10 @@ def config_path(harness: CliHarness) -> Path:
 
 
 def write_tokens(
-    harness: CliHarness, *, expires_at: str = "2099-01-01T00:00:00Z"
+    harness: CliHarness,
+    *,
+    expires_at: str = "2099-01-01T00:00:00Z",
+    access_point: str | None = CLI_ACCESS_POINT,
 ) -> Path:
     path = config_path(harness)
     write_config_file(
@@ -71,7 +74,7 @@ def write_tokens(
                 "access_token": "stored-access",
                 "refresh_token": "stored-refresh",
                 "expires_at": expires_at,
-                "api_access_point": CLI_ACCESS_POINT,
+                "api_access_point": access_point,
             },
         },
     )
@@ -403,3 +406,30 @@ def test_unauthorised_api_call_exits_3_with_error_document(
     assert error["type"] == "AuthenticationError"
     assert error["code"] == "INVALID_ACCESS_TOKEN"
     assert_no_secrets(outcome.stderr)
+
+
+@pytest.mark.covers("cli:auth refresh")
+def test_refresh_falls_back_to_base_uri_for_tokens_without_access_point(
+    run_cli: CliHarness, mock_api: respx.MockRouter
+) -> None:
+    write_tokens(run_cli, access_point=None)
+    route = mock_api.post(REFRESH_URL).mock(
+        return_value=json_response("oauth_refresh.json")
+    )
+
+    outcome = run_cli("auth", "refresh", **OAUTH_ENV)
+
+    assert outcome.exit_code == 0, outcome.stderr
+    assert route.called
+
+
+@pytest.mark.covers("cli:auth refresh")
+def test_refresh_without_any_access_point_is_a_json_auth_error(
+    run_cli: CliHarness,
+) -> None:
+    write_tokens(run_cli, access_point=None)
+
+    outcome = run_cli("auth", "refresh", ADOBESIGN_BASE_URI=None, **OAUTH_ENV)
+
+    assert outcome.exit_code == 3
+    assert outcome.error()["type"] == "MissingAccessPointError"

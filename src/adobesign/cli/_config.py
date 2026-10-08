@@ -208,6 +208,9 @@ def build_credentials(settings: Settings, **app_kwargs: Any) -> Credentials:
         )
         return OAuthCredentials(app, InMemoryTokenStore(tokens))
     assert settings.file_tokens is not None
-    return OAuthCredentials(
-        app, ConfigFileTokenStore(settings.path, settings.file_tokens)
-    )
+    file_tokens = settings.file_tokens
+    if file_tokens.api_access_point is None and settings.get("base_uri"):
+        file_tokens = file_tokens.model_copy(
+            update={"api_access_point": settings.get("base_uri")}
+        )
+    return OAuthCredentials(app, ConfigFileTokenStore(settings.path, file_tokens))
