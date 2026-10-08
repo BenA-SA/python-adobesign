@@ -1,0 +1,8 @@
+{
+  "access_token": "3AAABLblqZhBexampleAccessToken",
+  "refresh_token": "3AAABLblqZhCexampleRefreshToken",
+  "token_type": "Bearer",
+  "expires_in": 3600,
+  "api_access_point": "https://api.eu1.adobesign.com/",
+  "web_access_point": "https://secure.eu1.adobesign.com/"
+}

@@ -1,0 +1,89 @@
+{
+  "webhookId": "CBJCHBCAABAAwh7Tz2Lq9Xv4nB1mK8cJ5dF0sG3hR6pY",
+  "webhookName": "Agreement events",
+  "webhookNotificationId": "8f2c1a9e-4b6d-4e2a-9d3f-1c7b5a0e6f42",
+  "webhookUrlInfo": {
+    "url": "https://hooks.example.com/adobesign"
+  },
+  "webhookScope": "ACCOUNT",
+  "webhookNotificationApplicableUsers": [
+    {
+      "id": "CBJCHBCAABAAu5er1dSamExample000000000000",
+      "email": "sender@example.com",
+      "role": "SENDER",
+      "payloadApplicable": true
+    }
+  ],
+  "event": "AGREEMENT_ACTION_COMPLETED",
+  "subEvent": "ESIGNED",
+  "eventDate": "2026-10-02T11:40:52Z",
+  "eventResourceType": "agreement",
+  "eventResourceParentType": "",
+  "eventResourceParentId": "",
+  "participantRole": "SIGNER",
+  "actionType": "ESIGNED",
+  "participantUserId": "CBJCHBCAABAAu5er1dAliceExample0000000000",
+  "participantUserEmail": "alice@example.com",
+  "actingUserId": "CBJCHBCAABAAu5er1dAliceExample0000000000",
+  "actingUserEmail": "alice@example.com",
+  "actingUserIpAddress": "198.51.100.24",
+  "initiatingUserId": "CBJCHBCAABAAu5er1dSamExample000000000000",
+  "initiatingUserEmail": "sender@example.com",
+  "agreement": {
+    "id": "CBJCHBCAABAAlmUFfQ7Hm3kXH1v6Dk3B6dQ0RjK9tY2a",
+    "name": "Consultancy agreement — Example Ltd",
+    "signatureType": "ESIGN",
+    "status": "OUT_FOR_SIGNATURE",
+    "createdDate": "2026-10-01T09:15:22Z",
+    "expirationTime": "2026-10-31T23:59:59Z",
+    "externalId": {
+      "id": "crm-quote-1042"
+    },
+    "locale": "en_GB",
+    "message": "Please review and sign.",
+    "senderEmail": "sender@example.com",
+    "participantSetsInfo": {
+      "participantSets": [
+        {
+          "id": "CBJCHBCAABAAc1Ng3hS6xZx0JmPYv7cWq2eT9rK4uLbF",
+          "memberInfos": [
+            {
+              "id": "CBJCHBCAABAAm1Bq9Xw4zA7cV2nL6hJ0sD5fG8kP3rTy",
+              "email": "alice@example.com",
+              "name": "Alice Example",
+              "status": "COMPLETED"
+            }
+          ],
+          "order": 1,
+          "role": "SIGNER",
+          "status": "COMPLETED"
+        },
+        {
+          "id": "CBJCHBCAABAAd8Rj2kQ5wYv1LnOXu6bVp3fS0qJ7tMaE",
+          "memberInfos": [
+            {
+              "id": "CBJCHBCAABAAm2Kp8Wv3yB6dU1mK5gH9rC4eF7jN2qSx",
+              "email": "bob@example.com",
+              "name": "Bob Example",
+              "status": "ACTIVE"
+            }
+          ],
+          "order": 2,
+          "role": "APPROVER",
+          "status": "WAITING_FOR_MY_APPROVAL"
+        }
+      ],
+      "nextParticipantSets": [
+        {
+          "memberInfos": [
+            {
+              "email": "bob@example.com",
+              "name": "Bob Example",
+              "waitingSince": "2026-10-02T11:40:52Z"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

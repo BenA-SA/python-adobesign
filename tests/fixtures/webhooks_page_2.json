@@ -1,0 +1,16 @@
+{
+  "userWebhookList": [
+    {
+      "id": "CBJCHBCAABAAwh8Example0000000000000000000",
+      "name": "One agreement",
+      "scope": "RESOURCE",
+      "state": "INACTIVE",
+      "webhookSubscriptionEvents": [
+        "AGREEMENT_ALL"
+      ],
+      "resourceType": "AGREEMENT",
+      "resourceId": "CBJCHBCAABAAlmUFfQ7Hm3kXH1v6Dk3B6dQ0RjK9tY2a"
+    }
+  ],
+  "page": {}
+}

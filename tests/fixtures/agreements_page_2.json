@@ -1,0 +1,14 @@
+{
+  "userAgreementList": [
+    {
+      "id": "CBJCHBCAABAAq3mL0vT9bX2nE8fJ4pW7sZ1cY6rH5dKg",
+      "name": "Renewal 2026",
+      "status": "SIGNED",
+      "displayDate": "2026-09-12T14:02:10Z",
+      "hidden": false,
+      "esign": true,
+      "type": "AGREEMENT"
+    }
+  ],
+  "page": {}
+}

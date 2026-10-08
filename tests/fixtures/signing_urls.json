@@ -1,0 +1,13 @@
+{
+  "signingUrlSetInfos": [
+    {
+      "signingUrls": [
+        {
+          "email": "alice@example.com",
+          "esignUrl": "https://secure.eu1.adobesign.com/public/apiesign?pid=CBFCIBAA3AAABLblqZhB8example"
+        }
+      ],
+      "signingUrlSetName": "Client signatory"
+    }
+  ]
+}

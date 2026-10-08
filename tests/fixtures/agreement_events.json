@@ -1,0 +1,36 @@
+{
+  "events": [
+    {
+      "id": "CBJCHBCAABAAev1Example0000000000000000000",
+      "type": "CREATED",
+      "date": "2026-10-01T09:15:22Z",
+      "description": "Document created by Sam Sender",
+      "actingUserEmail": "sender@example.com",
+      "actingUserName": "Sam Sender",
+      "actingUserIpAddress": "203.0.113.10",
+      "participantEmail": "sender@example.com",
+      "participantRole": "SENDER",
+      "initiatingUserEmail": "sender@example.com",
+      "initiatingUserName": "Sam Sender"
+    },
+    {
+      "id": "CBJCHBCAABAAev2Example0000000000000000000",
+      "type": "ACTION_REQUESTED",
+      "date": "2026-10-01T09:16:03Z",
+      "description": "Document emailed to Alice Example (alice@example.com) for signature",
+      "participantEmail": "alice@example.com",
+      "participantRole": "SIGNER"
+    },
+    {
+      "id": "CBJCHBCAABAAev3Example0000000000000000000",
+      "type": "ESIGNED",
+      "date": "2026-10-02T11:40:51Z",
+      "description": "Document e-signed by Alice Example",
+      "actingUserEmail": "alice@example.com",
+      "actingUserIpAddress": "198.51.100.24",
+      "participantEmail": "alice@example.com",
+      "participantRole": "SIGNER",
+      "comment": "Signed on behalf of Example Ltd"
+    }
+  ]
+}

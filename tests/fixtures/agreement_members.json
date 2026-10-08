@@ -1,0 +1,65 @@
+{
+  "participantSets": [
+    {
+      "id": "CBJCHBCAABAAc1Ng3hS6xZx0JmPYv7cWq2eT9rK4uLbF",
+      "memberInfos": [
+        {
+          "id": "CBJCHBCAABAAm1Bq9Xw4zA7cV2nL6hJ0sD5fG8kP3rTy",
+          "email": "alice@example.com",
+          "name": "Alice Example",
+          "status": "ACTIVE",
+          "companyName": "Example Ltd",
+          "userId": "CBJCHBCAABAAu5er1dAliceExample0000000000",
+          "createdDate": "2026-10-01T09:15:22Z"
+        }
+      ],
+      "order": 1,
+      "role": "SIGNER",
+      "status": "WAITING_FOR_MY_SIGNATURE",
+      "name": "Client signatory"
+    },
+    {
+      "id": "CBJCHBCAABAAd8Rj2kQ5wYv1LnOXu6bVp3fS0qJ7tMaE",
+      "memberInfos": [
+        {
+          "id": "CBJCHBCAABAAm2Kp8Wv3yB6dU1mK5gH9rC4eF7jN2qSx",
+          "email": "bob@example.com",
+          "name": "Bob Example",
+          "status": "ACTIVE"
+        }
+      ],
+      "order": 2,
+      "role": "APPROVER",
+      "status": "NOT_YET_VISIBLE",
+      "privateMessage": "Approve once Alice has signed."
+    }
+  ],
+  "senderInfo": {
+    "id": "CBJCHBCAABAAs3nd3rExample00000000000000",
+    "email": "sender@example.com",
+    "name": "Sam Sender",
+    "status": "ACTIVE",
+    "companyName": "Sender Co",
+    "userId": "CBJCHBCAABAAu5er1dSamExample000000000000",
+    "createdDate": "2026-10-01T09:15:22Z"
+  },
+  "ccsInfo": [
+    {
+      "email": "records@example.com",
+      "id": "CBJCHBCAABAAcc1nf0Example000000000000000",
+      "status": "ACTIVE"
+    }
+  ],
+  "nextParticipantSets": [
+    {
+      "memberInfos": [
+        {
+          "email": "alice@example.com",
+          "name": "Alice Example",
+          "waitingSince": "2026-10-01T09:16:03Z"
+        }
+      ],
+      "name": "Client signatory"
+    }
+  ]
+}

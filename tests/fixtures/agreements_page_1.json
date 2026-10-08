@@ -1,0 +1,19 @@
+{
+  "userAgreementList": [
+    {
+      "id": "CBJCHBCAABAAlmUFfQ7Hm3kXH1v6Dk3B6dQ0RjK9tY2a",
+      "name": "Consultancy agreement — Example Ltd",
+      "status": "OUT_FOR_SIGNATURE",
+      "displayDate": "2026-10-01T09:15:22Z",
+      "groupId": "CBJCHBCAABAAgr0upIdExample00000000000000",
+      "hidden": false,
+      "esign": true,
+      "type": "AGREEMENT",
+      "parentId": "CBJCHBCAABAAlmUFfQ7Hm3kXH1v6Dk3B6dQ0RjK9tY2a",
+      "latestVersionId": "CBJCHBCAABAAv3rs10nIdExample000000000000"
+    }
+  ],
+  "page": {
+    "nextCursor": "qJXXj2UAUX1X9rTSqoUOlkhsdo-"
+  }
+}

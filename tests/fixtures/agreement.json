@@ -1,0 +1,53 @@
+{
+  "id": "CBJCHBCAABAAlmUFfQ7Hm3kXH1v6Dk3B6dQ0RjK9tY2a",
+  "name": "Consultancy agreement — Example Ltd",
+  "status": "OUT_FOR_SIGNATURE",
+  "type": "AGREEMENT",
+  "signatureType": "ESIGN",
+  "createdDate": "2026-10-01T09:15:22Z",
+  "expirationTime": "2026-10-31T23:59:59Z",
+  "message": "Please review and sign.",
+  "senderEmail": "sender@example.com",
+  "groupId": "CBJCHBCAABAAgr0upIdExample00000000000000",
+  "locale": "en_GB",
+  "externalId": {
+    "id": "crm-quote-1042"
+  },
+  "documentVisibilityEnabled": false,
+  "firstReminderDelay": 24,
+  "reminderFrequency": "DAILY_UNTIL_SIGNED",
+  "lastEventDate": "2026-10-01T09:16:03Z",
+  "ccs": [
+    {
+      "email": "records@example.com",
+      "label": "Records"
+    }
+  ],
+  "participantSetsInfo": [
+    {
+      "id": "CBJCHBCAABAAc1Ng3hS6xZx0JmPYv7cWq2eT9rK4uLbF",
+      "memberInfos": [
+        {
+          "id": "CBJCHBCAABAAm1Bq9Xw4zA7cV2nL6hJ0sD5fG8kP3rTy",
+          "email": "alice@example.com",
+          "name": "Alice Example"
+        }
+      ],
+      "order": 1,
+      "role": "SIGNER",
+      "name": "Client signatory"
+    },
+    {
+      "id": "CBJCHBCAABAAd8Rj2kQ5wYv1LnOXu6bVp3fS0qJ7tMaE",
+      "memberInfos": [
+        {
+          "id": "CBJCHBCAABAAm2Kp8Wv3yB6dU1mK5gH9rC4eF7jN2qSx",
+          "email": "bob@example.com",
+          "name": "Bob Example"
+        }
+      ],
+      "order": 2,
+      "role": "APPROVER"
+    }
+  ]
+}

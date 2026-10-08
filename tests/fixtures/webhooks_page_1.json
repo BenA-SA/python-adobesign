@@ -1,0 +1,25 @@
+{
+  "userWebhookList": [
+    {
+      "id": "CBJCHBCAABAAwh7Tz2Lq9Xv4nB1mK8cJ5dF0sG3hR6pY",
+      "name": "Agreement events",
+      "scope": "ACCOUNT",
+      "state": "ACTIVE",
+      "status": "ACTIVE",
+      "webhookSubscriptionEvents": [
+        "AGREEMENT_WORKFLOW_COMPLETED",
+        "AGREEMENT_RECALLED"
+      ],
+      "webhookUrlInfo": {
+        "url": "https://hooks.example.com/adobesign"
+      },
+      "resourceType": "AGREEMENT",
+      "applicationDisplayName": "Example Integration",
+      "applicationName": "ExampleIntegration",
+      "lastModified": "2026-09-30T08:00:00Z"
+    }
+  ],
+  "page": {
+    "nextCursor": "bXlDdXJzb3JWYWx1ZQ"
+  }
+}
