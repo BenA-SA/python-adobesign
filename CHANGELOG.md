@@ -21,3 +21,8 @@ All notable changes to this project are documented here. The format follows
   `X-AdobeSign-ClientId` verification handshake.
 - Typed Pydantic v2 models and forward-compatible enums.
 - Typed exception hierarchy and retries with backoff honouring `Retry-After`.
+- `adobesign` CLI (optional `cli` extra) for scripts and AI agents: JSON
+  output, JSON errors with documented exit codes, `--dry-run` on every
+  mutating command, a `--yes` gate on commands that email people, and
+  credentials only from the environment or a 0600 config file.
+- Agent skill at `skills/adobesign/SKILL.md`.

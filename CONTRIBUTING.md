@@ -43,9 +43,19 @@ CI enforces it:
    wrong-shape JSON, unexpected fields).
 5. Add the endpoint to the live suite in `tests/live/`.
 
+New CLI commands follow the same rule: add a test in `tests/test_cli_*.py`
+marked `@pytest.mark.covers("cli:<group> <command>")` that covers the
+success JSON, the exit codes, and (for mutating commands) `--dry-run`
+sending nothing. If the command emails or calls anyone, it also needs the
+`--yes` gate and a test for it. Add the command to `HTTP_COMMANDS` in
+`tests/test_cli_contract.py` if it calls the API. Update
+`skills/adobesign/SKILL.md` only when the judgement changes (safety, recipes);
+flag details live in `--help`.
+
 `tests/test_coverage_guard.py` discovers every public method in the package
-and fails if any lacks a `covers` marker, if an `@api_endpoint` method is
-missing from `ENDPOINT_CASES`, or if one is missing from the live suite.
+and every CLI command, and fails if any lacks a `covers` marker, if an
+`@api_endpoint` method is missing from `ENDPOINT_CASES`, or if one is missing
+from the live suite.
 Branch coverage below 95% also fails CI.
 
 ## Code style
